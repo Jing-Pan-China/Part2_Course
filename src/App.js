@@ -1,76 +1,8 @@
-<<<<<<< Updated upstream
-const Header=(props)=>{
-  const{name}=props
-  return(
-  <h1>{name}</h1>
-  )
-}
-
-const Parts=(props)=>{
-  const{parts}=props
-  return(
-      <div>
-        <ul>
-          {parts.map(part=>
-              <li key={part.id}>
-                {part.name} {part.exercises}
-              </li>)
-          }
-      
-        </ul>
-      </div>
-  )
-
-
-
-}
-
-const Sum=(props)=>{
-  const{parts}=props
-  return(
-    <div>
-     <h3>total of {parts.reduce((sum,part)=>{return sum+part.exercises},0)} excercises</h3> 
-   
-    </div>
-  )
-
-}
-
-const Content=(props)=>{
-       const{parts}=props
-       
-        return(
-          <div>
-            <Parts parts={parts}/>
-            <Sum parts={parts}/>
-
-          </div>
-        )
-  
-   }
-
-
-
-const Course=(props)=>{
-  const{course}=props
-  return(
-  <div>
-  <Header name={course.name}/>
-  <Content parts={course.parts}/>
-  </div>
-  )
-}
-
-
-const App = () => {
-  const courses = [
-=======
 import { useEffect, useState } from "react"
 import Course from "./components/course/course"
 
 const apiClient = { 
   getCoursesAsync: async () => Promise.resolve([
->>>>>>> Stashed changes
     {
       name: 'Half Stack application development',
       id: 1,
@@ -113,18 +45,6 @@ const apiClient = {
         }
       ]
     }
-<<<<<<< Updated upstream
-  ]
-
-  return (
-  <div>
-
-     {courses.map(course=><Course course={course}/>)}
-
-  
-  </div>
-  
-=======
   ])
 }
 
@@ -148,7 +68,6 @@ const App = () => {
       <h1>Courses</h1>
       {courses.map(course => <Course course={course} />)}
     </div>
->>>>>>> Stashed changes
   )
 }
 
