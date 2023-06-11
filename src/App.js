@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 const Header=(props)=>{
   const{name}=props
   return(
@@ -63,6 +64,13 @@ const Course=(props)=>{
 
 const App = () => {
   const courses = [
+=======
+import { useEffect, useState } from "react"
+import Course from "./components/course/course"
+
+const apiClient = { 
+  getCoursesAsync: async () => Promise.resolve([
+>>>>>>> Stashed changes
     {
       name: 'Half Stack application development',
       id: 1,
@@ -105,6 +113,7 @@ const App = () => {
         }
       ]
     }
+<<<<<<< Updated upstream
   ]
 
   return (
@@ -115,6 +124,31 @@ const App = () => {
   
   </div>
   
+=======
+  ])
+}
+
+const App = () => {
+  const [courses, setCourses] = useState([])
+  
+  useEffect(() => {
+    let isMounted = true
+    apiClient.getCoursesAsync().then((courses) => {
+      if (isMounted) {
+        setCourses(courses)
+      }
+    })
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  return (
+    <div>
+      <h1>Courses</h1>
+      {courses.map(course => <Course course={course} />)}
+    </div>
+>>>>>>> Stashed changes
   )
 }
 
