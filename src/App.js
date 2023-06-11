@@ -1,68 +1,8 @@
-const Header=(props)=>{
-  const{name}=props
-  return(
-  <h1>{name}</h1>
-  )
-}
+import { useEffect, useState } from "react"
+import Course from "./components/course/course"
 
-const Parts=(props)=>{
-  const{parts}=props
-  return(
-      <div>
-        <ul>
-          {parts.map(part=>
-              <li key={part.id}>
-                {part.name} {part.exercises}
-              </li>)
-          }
-      
-        </ul>
-      </div>
-  )
-
-
-
-}
-
-const Sum=(props)=>{
-  const{parts}=props
-  return(
-    <div>
-     <h3>total of {parts.reduce((sum,part)=>{return sum+part.exercises},0)} excercises</h3> 
-   
-    </div>
-  )
-
-}
-
-const Content=(props)=>{
-       const{parts}=props
-       
-        return(
-          <div>
-            <Parts parts={parts}/>
-            <Sum parts={parts}/>
-
-          </div>
-        )
-  
-   }
-
-
-
-const Course=(props)=>{
-  const{course}=props
-  return(
-  <div>
-  <Header name={course.name}/>
-  <Content parts={course.parts}/>
-  </div>
-  )
-}
-
-
-const App = () => {
-  const courses = [
+const apiClient = { 
+  getCoursesAsync: async () => Promise.resolve([
     {
       name: 'Half Stack application development',
       id: 1,
@@ -105,16 +45,29 @@ const App = () => {
         }
       ]
     }
-  ]
+  ])
+}
+
+const App = () => {
+  const [courses, setCourses] = useState([])
+  
+  useEffect(() => {
+    let isMounted = true
+    apiClient.getCoursesAsync().then((courses) => {
+      if (isMounted) {
+        setCourses(courses)
+      }
+    })
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   return (
-  <div>
-
-     {courses.map(course=><Course course={course}/>)}
-
-  
-  </div>
-  
+    <div>
+      <h1>Courses</h1>
+      {courses.map(course => <Course course={course} />)}
+    </div>
   )
 }
 
